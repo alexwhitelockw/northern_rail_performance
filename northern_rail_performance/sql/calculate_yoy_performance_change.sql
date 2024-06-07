@@ -1,4 +1,3 @@
--- SQLite
 WITH EOY_PERFORMANCE AS (
     SELECT COMPONENT,
         AREA,
