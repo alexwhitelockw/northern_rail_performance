@@ -6,7 +6,12 @@ import re
 import sqlite3
 
 
-def extract_pdf_text(filepath):
+def extract_pdf_text(filepath) -> str:
+    """Extract Text from a PDF
+
+    Keyword Arguments:
+    filepath -- The filepath for the PDF to extract text from
+    """
     try:
         reader = PyPDF2.PdfReader(filepath)
         pdf_text = [page.extract_text() for page in reader.pages]
@@ -14,7 +19,13 @@ def extract_pdf_text(filepath):
     except PyPDF2.errors.PdfReadError as e:
         print(f"{filepath} could not be read: {e}")
 
-def on_time_graph_text(pdf_text):
+
+def on_time_graph_text(pdf_text) -> pd.DataFrame:
+    """Extract the On-Time Graph Text
+
+    Keyword Arguments:
+    pdf_text -- The raw text from the On-Time PDF
+    """
     on_time_data = dict()
 
     pdf_text = pdf_text[0].splitlines()
@@ -23,7 +34,7 @@ def on_time_graph_text(pdf_text):
     report_date = pdf_text[0]
     start_date, end_date = [date.strip() for date in report_date.split("to")]
     start_date = start_date.replace("From", "").strip()
-    
+
     # Extract Report Percentages
     pattern_two_digits = r"(\d{2}\.\d)"
     pattern_one_digit = r"(\d{1}\.\d)"
@@ -40,7 +51,7 @@ def on_time_graph_text(pdf_text):
     percentage_labels = [
         'Early', 'On Time', 'Within 3 mins', 'Within 5 mins', 'Within 10 mins', 
         'Within 15 mins', '15 mins +', '20 mins +', '30 mins +', 'Cancelled']
-    
+
     percentage_with_label = zip(percentage_labels, percentages)
 
     # Output to JSON
@@ -55,7 +66,9 @@ def on_time_graph_text(pdf_text):
 
     return on_time_data
 
-def reasons_for_delay(pdf_text):
+
+def reasons_for_delay(pdf_text) -> pd.DataFrame:
+    """"""
     # Split Text into Lines
     pdf_text = pdf_text[0].splitlines()
 
@@ -76,7 +89,8 @@ def reasons_for_delay(pdf_text):
     return delay_reason_data
 
 
-def service_group_performance(pdf_text):
+def service_group_performance(pdf_text) -> pd.DataFrame:
+    """"""
     # Text from the First Page
     pdf_text = pdf_text[0]
 
@@ -106,7 +120,7 @@ def service_group_performance(pdf_text):
             column_names.append(" ".join([column, column_name_two[index]]))
         else:
             column_names.append(column)
-    
+
     column_names.insert(0, "Service Group")
 
     # Extract Service Group Data
@@ -142,7 +156,7 @@ def service_group_performance(pdf_text):
         service_group_rows.append(data_line_two)
 
         index += 2
-    
+
     service_group_data = pd.DataFrame(
         data=service_group_rows,
         columns=column_names

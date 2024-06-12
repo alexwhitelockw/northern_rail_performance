@@ -5,7 +5,7 @@ import requests
 import sqlite3
 
 
-def tidy_service_quality_table(table_html):
+def tidy_service_quality_table(table_html) -> pd.DataFrame:
     sq_data = pd.read_html(
         str(table_html)
     )[0]
@@ -44,7 +44,8 @@ def tidy_service_quality_table(table_html):
 
     return service_quality_table
 
-def scrape_service_quality():
+
+def scrape_service_quality() -> pd.DataFrame:
     url = "https://www.northernrailway.co.uk/about-us/customer/service-quality"
 
     try:
@@ -53,7 +54,7 @@ def scrape_service_quality():
     except requests.RequestException as e:
         print(f"Request failed: {e}")
         return None
-    
+
     page_html = BeautifulSoup(response.text, "lxml")
     table_area = page_html.find_all("div", "wysiwyg clearfix")
 
@@ -90,8 +91,9 @@ def scrape_service_quality():
                 end_of_year_tables = pd.concat([
                     end_of_year_tables, end_of_year_table
                 ])
-    
+
     return service_quality_tables, end_of_year_tables
+
 
 if __name__ == "__main__":
     conn = sqlite3.connect("northern_rail_performance/data/database/northern_rail_performance.db")
