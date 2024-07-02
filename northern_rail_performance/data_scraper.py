@@ -5,7 +5,10 @@ import requests
 import sqlite3
 
 
-def tidy_service_quality_table(table_html) -> pd.DataFrame:
+# Functions to scrape the HTML tables contained on the Service Quality
+# pages.
+
+def tidy_service_quality_table(table_html: str) -> pd.DataFrame:
     sq_data = pd.read_html(
         str(table_html)
     )[0]

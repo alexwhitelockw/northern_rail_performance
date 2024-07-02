@@ -6,7 +6,9 @@ import re
 import sqlite3
 
 
-def extract_pdf_text(filepath) -> str:
+# Functions to extract the relevant text from the performance PDFs.
+
+def extract_pdf_text(filepath: str) -> str:
     """Extract Text from a PDF
 
     Keyword Arguments:
@@ -20,7 +22,7 @@ def extract_pdf_text(filepath) -> str:
         print(f"{filepath} could not be read: {e}")
 
 
-def on_time_graph_text(pdf_text) -> pd.DataFrame:
+def on_time_graph_text(pdf_text: str) -> pd.DataFrame:
     """Extract the On-Time Graph Text
 
     Keyword Arguments:
@@ -67,8 +69,11 @@ def on_time_graph_text(pdf_text) -> pd.DataFrame:
     return on_time_data
 
 
-def reasons_for_delay(pdf_text) -> pd.DataFrame:
-    """"""
+def reasons_for_delay(pdf_text: str) -> pd.DataFrame:
+    """Extract Reasons for Delay from PDF
+
+    Keyword Arguments:
+    pdf_text -- The raw text from the On-Time PDF"""
     # Split Text into Lines
     pdf_text = pdf_text[0].splitlines()
 
@@ -89,8 +94,11 @@ def reasons_for_delay(pdf_text) -> pd.DataFrame:
     return delay_reason_data
 
 
-def service_group_performance(pdf_text) -> pd.DataFrame:
-    """"""
+def service_group_performance(pdf_text: str) -> pd.DataFrame:
+    """Extract Service Group Performance from PDF
+
+    Keyword Arguments:
+    pdf_text -- The raw text from the On-Time PDF"""
     # Text from the First Page
     pdf_text = pdf_text[0]
 

@@ -1,10 +1,13 @@
 from bs4 import BeautifulSoup
-import pandas as pd
 import re
 import requests
 
 
-def scrape_performance_pdf_links():
+# Functions allow for the identification and downloading of PDF reports from the 
+# performance page. These are then used in subsequent steps to extract the relevant
+# text.
+
+def scrape_performance_pdf_links() -> str:
     url = "https://www.northernrailway.co.uk/about-us/performance"
 
     try:
@@ -20,7 +23,7 @@ def scrape_performance_pdf_links():
     
     return pdf_links
 
-def download_performance_pdfs(pdf_link):
+def download_performance_pdfs(pdf_link: str) -> None:
     
     try:
         response = requests.get(pdf_link)
