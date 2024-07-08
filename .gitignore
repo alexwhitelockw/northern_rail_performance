@@ -164,3 +164,5 @@ cython_debug/
 # Report Files
 *.pdf
 .Rproj.user
+.Rhistory
+.Rprofile
