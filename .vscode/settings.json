@@ -1,0 +1,11 @@
+{
+    "sqltools.useNodeRuntime": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Northern Rail Performance",
+            "database": "${workspaceFolder:northern_rail_performance}/northern_rail_performance/data/database/northern_rail_performance.db"
+        }
+    ]
+}

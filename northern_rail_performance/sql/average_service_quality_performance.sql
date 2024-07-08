@@ -2,7 +2,11 @@ WITH PERIOD_PERFORMANCE AS (
     SELECT COMPONENT,
            AREA,
            DATE AS PERIOD_DATE_RANGE,
-           DATE(20 || SUBSTR(DATE, 7, 2) || '-' || SUBSTR(DATE, 4, 2) || '-' || SUBSTR(DATE, 1, 2)) AS PERIOD_START_DATE,
+           IIF(
+            LENGTH(DATE) = 21, 
+            DATE(20 || SUBSTR(DATE, 9, 2) || '-' || SUBSTR(DATE, 4, 2) || '-' || SUBSTR(DATE, 1, 2)),
+            DATE(20 || SUBSTR(DATE, 7, 2) || '-' || SUBSTR(DATE, 4, 2) || '-' || SUBSTR(DATE, 1, 2))
+            ) AS PERIOD_START_DATE,
            CAST(REPLACE(PERFORMANCE, '%', '') AS FLOAT) AS PERFORMANCE_PRCNT
     FROM SERVICE_QUALITY
 )

@@ -1,0 +1,12 @@
+name: train_company_performance_dashboard
+title: train_company_performance_dashboard
+username: alxwhitelockw
+account: alxwhitelockw
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 12282570
+bundleId: 8836540
+url: https://alxwhitelockw.shinyapps.io/train_company_performance_dashboard/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
